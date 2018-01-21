@@ -11,6 +11,7 @@
 # MUSIC VERIFICATION SYSTEM
 
   The function of the music verification system is to verify the outputted music of the generating system. This system distinguishes music from random noise. This system is important since it ensures the output quality of the whole system. This part should be implemented first since it is independent for the music generating system. Input: The data collected in music generating system or a piece of melody generated in the music generating system. The length of input is a musical sentence 8 measures.
+
 Output: 0 or 1, indicating whether the inputted music is music or noise.
 Model: The system is implemented using multiple Hidden Markov Models.
  
