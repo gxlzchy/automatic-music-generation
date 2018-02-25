@@ -4,16 +4,16 @@ format short;%display decimals in short
 addpath('D:\OneDrive\Year 4\COMP4911 CAPSTONE PROJECT\src');
 addpath('D:\OneDrive\Year 4\COMP4911 CAPSTONE PROJECT\src\lib\matlab-midi-master\src');
 addpath('D:\OneDrive\Year 4\COMP4911 CAPSTONE PROJECT\src\midi');
-midi=readmidi('testing_chord.mid');
+midi=readmidi('testing_chord3.mid');
 %[y,Fs] = midi2audio(midi); 
 %soundsc(y,Fs); % play sound
 notes = midiInfo(midi);
 clc;
 [n,temp]=size(notes);
 [X, delta] = align(notes);%delta is the minimun duration
-X=oversegmentation(X,delta);
-X=normalization(X);
-X=chord_classification(X);
+%X=oversegmentation(X,delta);
+X=normalization(X);X
+X=chord_classification(X);X
 %midi_new = matrix2midi(Y);
 %writemidi(midi_new, 'D:\OneDrive\Year 4\COMP4911 CAPSTONE PROJECT\src\midi\out1.mid');
 

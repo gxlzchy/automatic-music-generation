@@ -37,7 +37,7 @@ function Y=chord_classification(X)
 end
 
 function note=chord_to_note(chord)
-    chord=sortrows(chord,3);
+    lowest_note=chord(1,3)-59;
 %------------------------------------------------------     
     %do not care about too complex chord
     if size(chord,1)>4 
@@ -68,54 +68,54 @@ function note=chord_to_note(chord)
         offset=fix(offset);
         if match_chord_triad(offset,[4 3 3 2 4 3 3])==1
             note=chord(1,:);
-            note(3)=-1;
+            note(3)=-1*12-lowest_note+12;%class number is -[(i-1)*12+lowest note]
             return;
         end
         % #2 Minor seventh
         if match_chord_triad(offset,[3 4 3 2 3 4 3])==1
             note=chord(1,:);
-            note(3)=-2;
+            note(3)=-2*12-lowest_note+12;
             return;
         end
         % #major seventh
         if match_chord_triad(offset,[4 3 4 1 4 3 4])==1
             note=chord(1,:);
-            note(3)=-3;
+            note(3)=-3*12-lowest_note+12;
             return;
         end
         % #4 Half-deminished seventh
         if match_chord_triad(offset,[3 3 4 2 3 3 4])==1
             note=chord(1,:);
-            note(3)=-4;
+            note(3)=-4*12-lowest_note+12;
             return;
         end
         % #5 Diminished seventh
         if match_chord_triad(offset,[3 3 3 3 3 3 3])==1
             note=chord(1,:);
-            note(3)=-5;
+            note(3)=-5*12-lowest_note+12;
             return;
         end
         % #6 Augmented major seventh
         if match_chord_triad(offset,[4 4 3 1 4 4 3])==1
             note=chord(1,:);
-            note(3)=-6;
+            note(3)=-6*12-lowest_note+12;
             return;
         end
         % #7 Minor major seventh
         if match_chord_triad(offset,[3 4 4 1 3 4 4])==1
             note=chord(1,:);
-            note(3)=-7;
+            note(3)=-7*12-lowest_note+12;
             return;
         end
         % #8 Augmented seventh
         if match_chord_triad(offset,[4 4 2 2 4 4 2])==1
             note=chord(1,:);
-            note(3)=-8;
+            note(3)=-8*12-lowest_note+12;
             return;
         end
         % #9 others
             note=chord(1,:);
-            note(3)=-9;
+            note(3)=-97;
             return;
     end
     
@@ -126,54 +126,54 @@ function note=chord_to_note(chord)
         % #1 Dominant seventh
         if match_chord(chord,[4 3 3 2 4 3 3])==1
             note=chord(1,:);
-            note(3)=-1;
+            note(3)=-1*12-lowest_note+12;
             return;
         end
         % #2 Minor seventh
         if match_chord(chord,[3 4 3 2 3 4 3])==1
             note=chord(1,:);
-            note(3)=-2;
+            note(3)=-2*12-lowest_note+12;
             return;
         end
         % #major seventh
         if match_chord(chord,[4 3 4 1 4 3 4])==1
             note=chord(1,:);
-            note(3)=-3;
+            note(3)=-3*12-lowest_note+12;
             return;
         end
         % #4 Half-deminished seventh
         if match_chord(chord,[3 3 4 2 3 3 4])==1
             note=chord(1,:);
-            note(3)=-4;
+            note(3)=-4*12-lowest_note+12;
             return;
         end
         % #5 Diminished seventh
         if match_chord(chord,[3 3 3 3 3 3 3])==1
             note=chord(1,:);
-            note(3)=-5;
+            note(3)=-5*12-lowest_note+12;
             return;
         end
         % #6 Augmented major seventh
         if match_chord(chord,[4 4 3 1 4 4 3])==1
             note=chord(1,:);
-            note(3)=-6;
+            note(3)=-6*12-lowest_note+12;
             return;
         end
         % #7 Minor major seventh
         if match_chord(chord,[3 4 4 1 3 4 4])==1
             note=chord(1,:);
-            note(3)=-7;
+            note(3)=-7*12-lowest_note+12;
             return;
         end
         % #8 Augmented seventh
         if match_chord(chord,[4 4 2 2 4 4 2])==1
             note=chord(1,:);
-            note(3)=-8;
+            note(3)=-8*12-lowest_note+12;
             return;
         end
         % #9 others
             note=chord(1,:);
-            note(3)=-9;
+            note(3)=-97;
             return;
     end
     
