@@ -4,20 +4,29 @@ format short;%display decimals in short
 addpath('D:\OneDrive\Year 4\COMP4911 CAPSTONE PROJECT\src');
 addpath('D:\OneDrive\Year 4\COMP4911 CAPSTONE PROJECT\src\lib\matlab-midi-master\src');
 addpath('D:\OneDrive\Year 4\COMP4911 CAPSTONE PROJECT\src\midi');
-midi=readmidi('testing_chord3.mid');
-%[y,Fs] = midi2audio(midi); 
-%soundsc(y,Fs); % play sound
-notes = midiInfo(midi);
 clc;
-[n,temp]=size(notes);
-[X, delta] = align(notes);%delta is the minimun duration
-%X=oversegmentation(X,delta);
-X=normalization(X);X
-X=chord_classification(X);X
+tic;
+train_seq=[];
+for i=1:117
+    midi=readmidi(strcat('E:\capstone project large files\midi data\training_copy\train (',int2str(i),').mid'));
+    notes = midiInfo(midi,0);
+    notes=preprocessing(notes);
+    X=notes(:,3)';
+    X=fix(X);
+    train_seq{end+1}=X;
+    i
+end
+
+load('D:\OneDrive\Year 4\COMP4911 CAPSTONE PROJECT\src\classifier\training_matrix.mat','estTR','estE');trans=estTR;emis=estE;
+%[trans,emis]=initial_matrix();%estTR=trans;estE=emis;
+celldisp(train_seq);
+
+[estTR, estE]=hmmtrain(train_seq,trans,emis);
+save('D:\OneDrive\Year 4\COMP4911 CAPSTONE PROJECT\src\classifier\training_matrix','estTR','estE');
 %midi_new = matrix2midi(Y);
 %writemidi(midi_new, 'D:\OneDrive\Year 4\COMP4911 CAPSTONE PROJECT\src\midi\out1.mid');
 
-
+toc;
 %Utilities
 %dur=X(:,6)-X(:,5);
 %[X(:,3), dur(:)];
