@@ -1,8 +1,8 @@
 function [trans,emis]=initial_matrix()
 
-    state_num=77;
+    state_num=100;
     trans=rand(state_num,state_num);
-    emis=rand(state_num,77);
+    emis=rand(state_num,325);
     for i=1:state_num
         srow=sum(trans(i,:));
         trans(i,:)=1/srow;

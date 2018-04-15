@@ -21,7 +21,10 @@ function [X,delta]=align(X)
     end
     
     dur=X(:,6)-X(:,5);
-    delta=min(dur(1:p+1));
+    delta=min(dur(1:p));
+    if delta<0.001
+        delta=0.001
+    end
     for i=p+1:n
         dur(i)=ceil(floor(dur(i)/delta*10000)/10000)*delta;    %Assumption 1 for last one.
     end

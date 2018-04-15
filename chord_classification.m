@@ -37,7 +37,21 @@ function Y=chord_classification(X)
 end
 
 function note=chord_to_note(chord)
-    lowest_note=chord(1,3)-59;
+    chord(:,3)=chord(:,3)-47;
+    lowest_note=min(chord(:,3));
+    [temp,index]=max(chord(:,3));
+    highest_notes=chord(index,:);
+    %normalize and remove duplicated chords
+    chord(:,3)=mod((chord(:,3)-1),12)+1;
+    chord=sortrows(chord,3);
+    i=1;
+    while (i<=size(chord,1)-1)
+       if chord(i,3)==chord(i+1,3)
+           chord(i+1,:)=[];
+       else
+           i=i+1;
+       end
+   end
 %------------------------------------------------------     
     %do not care about too complex chord
     if size(chord,1)>4 
@@ -52,11 +66,8 @@ function note=chord_to_note(chord)
 %------------------------------------------------------     
     %double chord
     if size(chord,1)==2
-        if chord(1,3)>chord(2,3)
-           note=chord(1,:);
-        else
-          note=chord(2,:);
-        end
+        note=highest_notes;
+        return
     end
     
     
@@ -69,61 +80,61 @@ function note=chord_to_note(chord)
         if match_chord_triad(offset,[4 3 3 2 4 3 3])==1
             note=chord(1,:);
             class_no=1;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #2 Minor seventh
         if match_chord_triad(offset,[3 4 3 2 3 4 3])==1
             note=chord(1,:);
             class_no=2;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #major seventh
         if match_chord_triad(offset,[4 3 4 1 4 3 4])==1
             note=chord(1,:);
             class_no=3;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #4 Half-deminished seventh
         if match_chord_triad(offset,[3 3 4 2 3 3 4])==1
             note=chord(1,:);
             class_no=4;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #5 Diminished seventh
         if match_chord_triad(offset,[3 3 3 3 3 3 3])==1
             note=chord(1,:);
             class_no=5;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #6 Augmented major seventh
         if match_chord_triad(offset,[4 4 3 1 4 4 3])==1
             note=chord(1,:);
             class_no=6;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #7 Minor major seventh
         if match_chord_triad(offset,[3 4 4 1 3 4 4])==1
             note=chord(1,:);
             class_no=7;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #8 Augmented seventh
         if match_chord_triad(offset,[4 4 2 2 4 4 2])==1
             note=chord(1,:);
             class_no=8;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #9 others
             note=chord(1,:);
-            note(3)=77;
+            note(3)=325;
             return;
     end
     
@@ -135,61 +146,61 @@ function note=chord_to_note(chord)
         if match_chord(chord,[4 3 3 2 4 3 3])==1
             note=chord(1,:);
             class_no=1;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #2 Minor seventh
         if match_chord(chord,[3 4 3 2 3 4 3])==1
             note=chord(1,:);
             class_no=2;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #major seventh
         if match_chord(chord,[4 3 4 1 4 3 4])==1
             note=chord(1,:);
             class_no=3;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #4 Half-deminished seventh
         if match_chord(chord,[3 3 4 2 3 3 4])==1
             note=chord(1,:);
             class_no=4;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #5 Diminished seventh
         if match_chord(chord,[3 3 3 3 3 3 3])==1
             note=chord(1,:);
             class_no=5;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #6 Augmented major seventh
         if match_chord(chord,[4 4 3 1 4 4 3])==1
             note=chord(1,:);
             class_no=6;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #7 Minor major seventh
         if match_chord(chord,[3 4 4 1 3 4 4])==1
             note=chord(1,:);
             class_no=7;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #8 Augmented seventh
         if match_chord(chord,[4 4 2 2 4 4 2])==1
             note=chord(1,:);
             class_no=8;
-            note(3)=13+(class_no-1)*8+lowest_note;
+            note(3)=36+(class_no-1)*36+lowest_note;
             return;
         end
         % #9 others
             note=chord(1,:);
-            note(3)=77;
+            note(3)=325;
             return;
     end
     
