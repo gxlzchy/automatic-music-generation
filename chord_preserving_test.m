@@ -1,8 +1,8 @@
 %Assumption 1. endtime of current node is defined as start time of next node except for chords. This eliminate slur lines.
 %Assumption 2. The 0 time is the start and it is the first non-rest node, no matter which channel it is in.
 format short;%display decimals in short
-addpath('J:\COMP4912\src');
-addpath('J:\COMP4912\src\lib\matlab-midi-master\src');
+addpath('D:\OneDrive\Year 4\COMP4911 CAPSTONE PROJECT\src');
+addpath('D:\OneDrive\Year 4\COMP4911 CAPSTONE PROJECT\src\lib\matlab-midi-master\src');
 clc;
 tic;
 train_seq=[];
@@ -13,14 +13,9 @@ nTimes=1;
 name='canon';
 i=3;
     try
-        midi=readmidi(strcat('J:\COMP4912\training\train (',int2str(i),').mid'));
+        midi=readmidi(strcat('D:\OneDrive\Year 4\COMP4911 CAPSTONE PROJECT\src\training\training\train (',int2str(i),').mid'));
         notes = midiInfo(midi,0);
-        notes=filter_channel(notes);
-
-    %     midi_new = matrix2midi(notes);
-    %     [y,Fs] = midi2audio(midi_new);
-    %     soundsc(y,Fs);
-    
+        notes=filter_channel(notes);    
         [X, delta] = align(notes);%delta is the minimun duration
         X=oversegmentation(X,delta);
         X=normalization(X);
@@ -106,4 +101,4 @@ for i=1:size(notes,1)
     end   
 end
 midi_new = matrix2midi(output);
-writemidi(midi_new, 'J:\COMP4912\training_copy\train (3)-2.mid');
+writemidi(midi_new, 'D:\OneDrive\Year 4\COMP4911 CAPSTONE PROJECT\src\demo\chord_preserving_demo\chord_preserving_canon.mid');
